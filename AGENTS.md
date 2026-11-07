@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Keep the editable, public pricing sheet at the project root in `pricing.toml` and import its values through a browser-safe typed parser; the landing page and tests must read the same source.
