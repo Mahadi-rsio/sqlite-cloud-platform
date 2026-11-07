@@ -1694,3 +1694,578 @@
     animation-iteration-count: 1 !important;
   }
 }
+
+/* Landing page refinements */
+.button-cut {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 0 !important;
+  letter-spacing: 0.02em;
+}
+
+.button-cut::before {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: -45%;
+  width: 28%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklch, white 42%, transparent),
+    transparent
+  );
+  content: "";
+  transform: skewX(-20deg);
+  transition: left 450ms ease;
+}
+
+.button-cut:hover::before {
+  left: 125%;
+}
+
+.button-cut:active {
+  transform: scale(0.97);
+}
+
+.button-primary,
+.button-secondary,
+.button-ghost {
+  clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
+}
+
+.button-primary {
+  background: var(--signal);
+  color: var(--signal-foreground);
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--signal) 35%, transparent),
+    0 10px 24px color-mix(in oklch, var(--signal) 12%, transparent);
+}
+
+.button-primary:hover {
+  background: color-mix(in oklch, var(--signal) 88%, white);
+  box-shadow: 0 0 22px color-mix(in oklch, var(--signal) 28%, transparent);
+}
+
+.button-secondary {
+  border: 1px solid color-mix(in oklch, var(--foreground) 25%, var(--rule));
+  background: transparent;
+  color: var(--foreground);
+}
+
+.button-secondary:hover {
+  border-color: var(--signal);
+  background: color-mix(in oklch, var(--signal) 9%, transparent);
+}
+
+.button-ghost {
+  background: transparent;
+  color: var(--muted-foreground);
+}
+
+.button-ghost:hover {
+  background: color-mix(in oklch, var(--foreground) 7%, transparent);
+  color: var(--foreground);
+}
+
+.topbar-floating {
+  border-color: color-mix(in oklch, var(--foreground) 16%, transparent);
+  background: color-mix(in oklch, var(--background) 72%, transparent);
+  transition:
+    top 220ms ease,
+    min-height 220ms ease,
+    height 220ms ease,
+    background 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.topbar-floating.is-scrolled {
+  top: 8px;
+  min-height: 48px;
+  height: 48px;
+  background: color-mix(in oklch, var(--background) 92%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklch, var(--foreground) 12%, transparent),
+    0 12px 30px color-mix(in oklch, var(--background) 62%, transparent);
+}
+
+.topbar-links > a:not(.topbar-cta) {
+  position: relative;
+  padding-block: 8px;
+}
+
+.topbar-links > a:not(.topbar-cta)::after {
+  position: absolute;
+  right: 0;
+  bottom: 1px;
+  left: 0;
+  height: 1px;
+  background: var(--signal);
+  content: "";
+  opacity: 0;
+  transform: scaleX(0.4);
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.topbar-links > a:not(.topbar-cta):hover,
+.topbar-links > a:not(.topbar-cta).is-active {
+  color: var(--foreground);
+}
+
+.topbar-links > a:not(.topbar-cta):hover::after,
+.topbar-links > a:not(.topbar-cta).is-active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.mobile-nav {
+  animation: mobile-nav-in 180ms ease both;
+}
+
+.mobile-nav a {
+  min-height: 54px;
+  border-bottom: 1px solid var(--rule);
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 13px;
+}
+
+.mobile-nav a.is-active {
+  color: var(--foreground);
+  background: color-mix(in oklch, var(--signal) 8%, transparent);
+}
+
+.mobile-nav a:last-child {
+  min-height: 48px;
+  margin-top: 6px;
+  border: 0;
+  background: var(--signal);
+  color: var(--signal-foreground);
+  justify-content: center;
+}
+
+@keyframes mobile-nav-in {
+  from {
+    opacity: 0;
+    transform: translateY(-7px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.deployment-flow {
+  position: relative;
+  overflow: hidden;
+  padding-block: 64px 72px;
+  border-bottom: 1px solid var(--rule);
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      color-mix(in oklch, var(--signal) 8%, transparent),
+      transparent 50%
+    ),
+    linear-gradient(color-mix(in oklch, var(--foreground) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(
+      90deg,
+      color-mix(in oklch, var(--foreground) 4%, transparent) 1px,
+      transparent 1px
+    );
+  background-size:
+    auto,
+    38px 38px,
+    38px 38px;
+}
+
+.flow-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.flow-heading .mono-label {
+  color: var(--signal);
+}
+
+.flow-heading h2 {
+  margin: 9px 0 0;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 500;
+}
+
+.flow-heading-note {
+  color: var(--muted-foreground);
+  font:
+    11px "Geist Mono",
+    monospace;
+}
+
+.flow-diagram {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: center;
+  margin-top: 42px;
+}
+
+.flow-step-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.flow-step {
+  position: relative;
+  display: grid;
+  width: 100%;
+  min-height: 154px;
+  grid-template-columns: auto 1fr;
+  align-content: center;
+  gap: 16px;
+  padding: 22px 19px;
+  border: 1px solid color-mix(in oklch, var(--foreground) 15%, var(--rule));
+  background: color-mix(in oklch, var(--panel) 90%, transparent);
+  clip-path: polygon(
+    0 0,
+    calc(100% - 14px) 0,
+    100% 14px,
+    100% 100%,
+    14px 100%,
+    0 calc(100% - 14px)
+  );
+  opacity: 0.45;
+  transform: translateY(12px);
+  transition:
+    opacity 500ms ease,
+    transform 500ms ease,
+    border-color 300ms ease,
+    box-shadow 300ms ease;
+}
+
+.flow-step-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border: 1px solid color-mix(in oklch, var(--signal) 45%, var(--rule));
+  color: var(--signal);
+}
+
+.flow-step h3 {
+  margin: 1px 0 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.flow-step p {
+  max-width: 150px;
+  margin: 8px 0 0;
+  color: var(--muted-foreground);
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.flow-live-badge {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  color: var(--positive);
+  font:
+    10px "Geist Mono",
+    monospace;
+}
+
+.flow-connector {
+  position: relative;
+  width: 42px;
+  height: 7px;
+  flex: 0 0 42px;
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--signal), #7c3aed);
+  box-shadow: 0 0 16px color-mix(in oklch, var(--signal) 42%, transparent);
+}
+
+.flow-connector::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -35%;
+  width: 35%;
+  background: white;
+  box-shadow: 0 0 18px 5px white;
+  content: "";
+  opacity: 0;
+}
+
+.deployment-flow.is-visible .flow-step {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.deployment-flow.is-visible .flow-step:nth-child(1),
+.deployment-flow.is-visible .flow-step-wrap:nth-child(1) .flow-step {
+  transition-delay: 150ms;
+}
+
+.deployment-flow.is-visible .flow-step-wrap:nth-child(2) .flow-step {
+  transition-delay: 550ms;
+}
+
+.deployment-flow.is-visible .flow-step-wrap:nth-child(3) .flow-step {
+  transition-delay: 950ms;
+}
+
+.deployment-flow.is-visible .flow-step-wrap:nth-child(4) .flow-step {
+  transition-delay: 1350ms;
+}
+
+.deployment-flow.is-visible .flow-connector::after {
+  opacity: 1;
+  animation: flow-draw 1.25s ease forwards;
+}
+
+.deployment-flow.is-visible .flow-step-live {
+  border-color: color-mix(in oklch, var(--positive) 58%, var(--rule));
+  box-shadow: 0 0 32px color-mix(in oklch, var(--positive) 18%, transparent);
+}
+
+.deployment-flow.is-visible .flow-step-live .flow-step-icon {
+  border-color: var(--positive);
+  color: var(--positive);
+}
+
+@keyframes flow-draw {
+  0% {
+    left: -35%;
+  }
+  100% {
+    left: 110%;
+  }
+}
+
+.ecosystem {
+  padding-bottom: 33px;
+}
+
+.ecosystem-marquee {
+  display: grid;
+  gap: 3px;
+}
+
+.ecosystem-track {
+  gap: 30px;
+  align-items: center;
+}
+
+.ecosystem-track-1 {
+  animation: marquee-left 34s linear infinite;
+}
+
+.ecosystem-track-2 {
+  animation: marquee-right 38s linear infinite;
+}
+
+.ecosystem-marquee:hover .ecosystem-track {
+  animation-play-state: paused;
+}
+
+.ecosystem-item {
+  min-width: 36px;
+  padding: 10px 6px;
+  color: color-mix(in oklch, var(--muted-foreground) 72%, transparent);
+}
+
+.ecosystem-item:hover {
+  color: var(--signal);
+}
+
+.ecosystem-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.ecosystem-name {
+  display: none;
+}
+
+@keyframes marquee-left {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.footer-cta {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 22px 30px;
+  margin-top: 76px;
+  padding: 38px;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background:
+    linear-gradient(var(--panel), color-mix(in oklch, var(--panel) 82%, var(--signal))) padding-box,
+    linear-gradient(
+        120deg,
+        var(--signal),
+        #7c3aed,
+        color-mix(in oklch, var(--foreground) 17%, transparent)
+      )
+      border-box;
+  box-shadow: 0 18px 60px color-mix(in oklch, var(--signal) 10%, transparent);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.footer-cta::before {
+  position: absolute;
+  width: 230px;
+  height: 230px;
+  top: -110px;
+  right: -60px;
+  border-radius: 50%;
+  background: color-mix(in oklch, var(--signal) 22%, transparent);
+  content: "";
+  filter: blur(35px);
+  pointer-events: none;
+}
+
+.footer-cta::after {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(color-mix(in oklch, var(--foreground) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(
+      90deg,
+      color-mix(in oklch, var(--foreground) 4%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 24px 24px;
+  content: "";
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.footer-cta > * {
+  position: relative;
+  z-index: 1;
+}
+
+.footer-cta:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 74px color-mix(in oklch, var(--signal) 18%, transparent);
+}
+
+.footer-cta h2 {
+  font-size: clamp(24px, 4vw, 32px);
+}
+
+.footer-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cta-trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  grid-column: 1 / -1;
+  color: var(--muted-foreground);
+  font:
+    10px "Geist Mono",
+    monospace;
+}
+
+.cta-trust-row span::before {
+  margin-right: 7px;
+  color: var(--positive);
+  content: "✓";
+}
+
+@media (max-width: 760px) {
+  .flow-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .flow-heading-note {
+    display: none;
+  }
+
+  .flow-diagram {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-top: 31px;
+    padding-left: 29px;
+  }
+
+  .flow-diagram::before {
+    position: absolute;
+    top: 15px;
+    bottom: 15px;
+    left: 8px;
+    width: 7px;
+    background: linear-gradient(var(--signal), #7c3aed, var(--positive));
+    box-shadow: 0 0 17px color-mix(in oklch, var(--signal) 35%, transparent);
+    content: "";
+  }
+
+  .flow-step-wrap {
+    position: relative;
+  }
+
+  .flow-step-wrap::before {
+    position: absolute;
+    top: 50%;
+    left: -21px;
+    width: 21px;
+    height: 5px;
+    background: var(--signal);
+    content: "";
+  }
+
+  .flow-connector {
+    display: none;
+  }
+
+  .flow-step {
+    min-height: 115px;
+  }
+
+  .footer-cta {
+    grid-template-columns: 1fr;
+    margin-top: 50px;
+    padding: 25px 20px;
+  }
+
+  .footer-cta-actions {
+    justify-content: stretch;
+  }
+
+  .footer-cta-actions .button-cut {
+    flex: 1 1 100%;
+  }
+
+  .cta-trust-row {
+    gap: 10px 15px;
+  }
+}
