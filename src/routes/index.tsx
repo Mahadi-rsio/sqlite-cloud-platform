@@ -26,10 +26,12 @@ import {
   SiDjango,
   SiDocker,
   SiExpress,
+  SiFastapi,
   SiFlask,
   SiGin,
   SiGithub,
   SiHono,
+  SiKoa,
   SiNestjs,
   SiNextdotjs,
   SiNuxt,
@@ -38,7 +40,7 @@ import {
   SiSvelte,
 } from "@icons-pack/react-simple-icons";
 import { Link, createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { type ComponentProps, useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { pricing } from "@/lib/pricing";
@@ -51,19 +53,29 @@ const usd = (amount: number, maximumFractionDigits = 4) =>
   }).format(amount);
 
 const frameworks = [
-  { name: "Next.js", icon: SiNextdotjs },
-  { name: "SvelteKit", icon: SiSvelte },
-  { name: "Python", icon: SiPython },
-  { name: "Django", icon: SiDjango },
-  { name: "Flask", icon: SiFlask },
-  { name: "Docker", icon: SiDocker },
   { name: "Express", icon: SiExpress },
-  { name: "Nuxt", icon: SiNuxt },
   { name: "NestJS", icon: SiNestjs },
-  { name: "Gin", icon: SiGin },
+  { name: "Fastify", icon: SiNodeMark },
   { name: "Hono", icon: SiHono },
+  { name: "Koa", icon: SiKoa },
+  { name: "AdonisJS", icon: SiNodeMark },
+  { name: "Next.js", icon: SiNextdotjs },
+  { name: "Nuxt", icon: SiNuxt },
+  { name: "Flask", icon: SiFlask },
+  { name: "Django", icon: SiDjango },
+  { name: "FastAPI", icon: SiFastapi },
+  { name: "Starlette", icon: SiPython },
+  { name: "Sanic", icon: SiPython },
+  { name: "Tornado", icon: SiPython },
+  { name: "Gin", icon: SiGin },
+  { name: "SvelteKit", icon: SiSvelte },
   { name: "SQLite", icon: SiSqlite },
+  { name: "Docker", icon: SiDocker },
 ];
+
+function SiNodeMark(props: ComponentProps<"svg">) {
+  return <Server {...props} />;
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -94,12 +106,73 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [servingTraffic, setServingTraffic] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("features");
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [flowVisible, setFlowVisible] = useState(false);
+  const navRef = useRef<HTMLElement>(null);
   const activeComputeCost = pricing.instance.rate_per_cu_minute_usd * 1.5;
   const formatInteger = (value: number) => new Intl.NumberFormat("en-US").format(value);
 
+  useEffect(() => {
+    const updateScrolled = () => setIsScrolled(window.scrollY > 24);
+    updateScrolled();
+    window.addEventListener("scroll", updateScrolled, { passive: true });
+    return () => window.removeEventListener("scroll", updateScrolled);
+  }, []);
+
+  useEffect(() => {
+    const sections = ["features", "database", "pricing", "faq"]
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible?.target.id) setActiveSection(visible.target.id);
+      },
+      { rootMargin: "-25% 0px -55% 0px", threshold: [0.1, 0.3, 0.6] },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const flow = document.getElementById("flow");
+    if (!flow) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setFlowVisible(true);
+      },
+      { threshold: 0.25 },
+    );
+    observer.observe(flow);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const closeOnOutsideTap = (event: PointerEvent) => {
+      if (mobileMenuOpen && navRef.current && !navRef.current.contains(event.target as Node)) {
+        setMobileMenuOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", closeOnOutsideTap);
+    return () => document.removeEventListener("pointerdown", closeOnOutsideTap);
+  }, [mobileMenuOpen]);
+
+  const navItems = [
+    { href: "#features", label: "Features", id: "features" },
+    { href: "#database", label: "Database", id: "database" },
+    { href: "#pricing", label: "Pricing", id: "pricing" },
+    { href: "#faq", label: "FAQ", id: "faq" },
+  ];
+
   return (
     <>
-      <header className="site-width topbar topbar-floating">
+      <header
+        ref={navRef}
+        className={`site-width topbar topbar-floating${isScrolled ? " is-scrolled" : ""}`}
+      >
         <Link aria-label="Cloudisy home" className="brand-link" to="/">
           <span aria-hidden="true" className="brand-mark">
             <Activity size={15} strokeWidth={1.8} />
@@ -107,10 +180,15 @@ function Index() {
           <span>cloudisy</span>
         </Link>
         <nav aria-label="Main navigation" className="topbar-links">
-          <a href="#features">Features</a>
-          <a href="#database">Database</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#faq">FAQ</a>
+          {navItems.map((item) => (
+            <a
+              className={activeSection === item.id ? "is-active" : undefined}
+              href={item.href}
+              key={item.id}
+            >
+              {item.label}
+            </a>
+          ))}
           <a className="nav-login" href="#">
             Log in
           </a>
@@ -136,18 +214,16 @@ function Index() {
         </Button>
         {mobileMenuOpen && (
           <nav aria-label="Mobile navigation" className="mobile-nav">
-            <a href="#features" onClick={() => setMobileMenuOpen(false)}>
-              Features
-            </a>
-            <a href="#database" onClick={() => setMobileMenuOpen(false)}>
-              Database
-            </a>
-            <a href="#pricing" onClick={() => setMobileMenuOpen(false)}>
-              Pricing
-            </a>
-            <a href="#faq" onClick={() => setMobileMenuOpen(false)}>
-              FAQ
-            </a>
+            {navItems.map((item) => (
+              <a
+                className={activeSection === item.id ? "is-active" : undefined}
+                href={item.href}
+                key={item.id}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {item.label}
+              </a>
+            ))}
             <a href="#deploy" onClick={() => setMobileMenuOpen(false)}>
               Start free <ArrowUpRight aria-hidden="true" size={13} />
             </a>
@@ -241,31 +317,55 @@ function Index() {
           </div>
         </section>
 
-        <section aria-label="Deployment flow" className="site-width flow-strip">
-          <div className="flow-intro">
-            <span className="mono-label">THE FLOW</span>
-            <strong>From commit to cloud.</strong>
+        <section
+          aria-labelledby="flow-title"
+          className={`deployment-flow site-width${flowVisible ? " is-visible" : ""}`}
+          id="flow"
+        >
+          <div className="flow-heading">
+            <div>
+              <span className="mono-label">THE FLOW</span>
+              <h2 id="flow-title">From GitHub push to a live app.</h2>
+            </div>
+            <span className="flow-heading-note">A calmer path to production.</span>
           </div>
-          <div className="flow-track">
-            <div className="flow-node">
-              <Github aria-hidden="true" size={16} />
-              <span>Push</span>
-            </div>
-            <ArrowRight aria-hidden="true" className="flow-arrow" size={15} />
-            <div className="flow-node">
-              <Terminal aria-hidden="true" size={16} />
-              <span>Build</span>
-            </div>
-            <ArrowRight aria-hidden="true" className="flow-arrow" size={15} />
-            <div className="flow-node">
-              <DatabaseZap aria-hidden="true" size={16} />
-              <span>Persist</span>
-            </div>
-            <ArrowRight aria-hidden="true" className="flow-arrow" size={15} />
-            <div className="flow-node flow-node-active">
-              <Zap aria-hidden="true" size={16} />
-              <span>Wake</span>
-            </div>
+          <div className="flow-diagram">
+            {[
+              {
+                icon: Github,
+                title: "GitHub Push",
+                caption: "Push to main",
+              },
+              {
+                icon: Terminal,
+                title: "Cloud Build",
+                caption: "Built in ~12s",
+              },
+              {
+                icon: DatabaseZap,
+                title: "SQLite Persist",
+                caption: "1 GB SQLite included",
+              },
+              {
+                icon: Zap,
+                title: "Sleep / Wake",
+                caption: "Wakes on first request, 0.00 idle cost",
+              },
+            ].map(({ icon: Icon, title, caption }, index) => (
+              <div className="flow-step-wrap" key={title}>
+                <article className={`flow-step${index === 3 ? " flow-step-live" : ""}`}>
+                  <span className="flow-step-icon">
+                    <Icon aria-hidden="true" size={25} />
+                  </span>
+                  <div>
+                    <h3>{title}</h3>
+                    <p>{caption}</p>
+                  </div>
+                  {index === 3 && <span className="flow-live-badge">LIVE</span>}
+                </article>
+                {index < 3 && <span aria-hidden="true" className="flow-connector" />}
+              </div>
+            ))}
           </div>
         </section>
 
@@ -294,14 +394,15 @@ function Index() {
         >
           <div className="mono-label ecosystem-title">Bring the stack you already use</div>
           <div className="ecosystem-marquee" aria-label="Supported frameworks">
-            <div className="ecosystem-track">
-              {[...frameworks, ...frameworks].map(({ name, icon: Icon }, index) => (
-                <div className="ecosystem-item" key={`${name}-${index}`}>
-                  <Icon aria-hidden="true" className="ecosystem-icon" />
-                  <span className="ecosystem-name">{name}</span>
-                </div>
-              ))}
-            </div>
+            {[frameworks.slice(0, 9), frameworks.slice(9)].map((row, rowIndex) => (
+              <div className={`ecosystem-track ecosystem-track-${rowIndex + 1}`} key={rowIndex}>
+                {[...row, ...row].map(({ name, icon: Icon }, index) => (
+                  <div aria-label={name} className="ecosystem-item" key={`${name}-${index}`}>
+                    <Icon aria-hidden="true" className="ecosystem-icon" />
+                  </div>
+                ))}
+              </div>
+            ))}
           </div>
         </section>
 
@@ -799,33 +900,33 @@ function Index() {
             </div>
           </div>
         </section>
-
-        <section aria-label="Start your deployment" className="closing-band site-width">
-          <div>
-            <h2 className="closing-title">Your repo has places to be.</h2>
-            <p className="closing-copy">Your cloud bill doesn’t have to run while it’s away.</p>
-          </div>
-          <Button asChild className="button-mono" size="default">
-            <a href="#deploy">
-              See how deployment works <ArrowRight aria-hidden="true" size={14} />
-            </a>
-          </Button>
-        </section>
       </main>
 
       <footer className="site-footer">
-        <div className="site-width footer-cta">
+        <section aria-label="Start your deployment" className="site-width footer-cta" id="cta">
           <div>
             <span className="mono-label">READY TO SHIP?</span>
             <h2>Your app is one push away.</h2>
             <p>No credit card required.</p>
           </div>
-          <Button asChild className="button-mono" size="default">
-            <a href="#deploy">
-              Start free <ArrowRight aria-hidden="true" size={14} />
-            </a>
-          </Button>
-        </div>
+          <div className="footer-cta-actions">
+            <Button asChild className="button-mono" size="default">
+              <a href="#deploy">
+                Start free <ArrowRight aria-hidden="true" size={14} />
+              </a>
+            </Button>
+            <Button asChild className="button-mono" size="default" variant="outline">
+              <a href="#flow">
+                See how deployment works <ArrowRight aria-hidden="true" size={14} />
+              </a>
+            </Button>
+          </div>
+          <div className="cta-trust-row">
+            <span>Free tier</span>
+            <span>Deploy in ~12s</span>
+            <span>SQLite included</span>
+          </div>
+        </section>
         <div className="site-width footer-grid">
           <div className="footer-brand">
             <Link aria-label="Cloudisy home" className="brand-link" to="/">
