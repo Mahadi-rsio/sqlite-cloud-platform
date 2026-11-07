@@ -67,21 +67,21 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
-        title: "Stackminute — On-demand app hosting, billed by the minute",
+        title: "Cloudisy — On-demand app hosting, billed by the minute",
       },
       {
         name: "description",
         content:
-          "Deploy Next.js, SvelteKit, Python and more from GitHub. Scale to zero, wake on traffic, and pay per compute minute with 1 GB of free SQLite storage.",
+          "Cloudisy is the developer-friendly cloud platform from Bangladesh for GitHub app deployments and managed SQLite databases. Start free with no credit card.",
       },
       {
         property: "og:title",
-        content: "Stackminute — Cloud that clocks out.",
+        content: "Cloudisy — Deploy apps and create SQLite databases in seconds.",
       },
       {
         property: "og:description",
         content:
-          "Deploy your GitHub project, sleep at zero traffic, and pay per compute minute. Includes free, metered SQLite.",
+          "Deploy from GitHub and create managed SQLite databases in seconds. Start free with no credit card.",
       },
       { property: "og:type", content: "website" },
     ],
@@ -97,19 +97,20 @@ function Index() {
   return (
     <>
       <header className="site-width topbar">
-        <Link aria-label="Stackminute home" className="brand-link" to="/">
+        <Link aria-label="Cloudisy home" className="brand-link" to="/">
           <span aria-hidden="true" className="brand-mark">
             <Activity size={15} strokeWidth={1.8} />
           </span>
-          <span>stackminute</span>
+          <span>cloudisy</span>
         </Link>
         <nav aria-label="Main navigation" className="topbar-links">
-          <a href="#deploy">How it works</a>
           <a href="#features">Features</a>
+          <a href="#database">Database</a>
           <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
           <Button asChild className="topbar-cta button-mono" size="sm">
             <a href="#deploy">
-              Explore deploys <ArrowUpRight aria-hidden="true" size={13} />
+              Start free <ArrowUpRight aria-hidden="true" size={13} />
             </a>
           </Button>
         </nav>
@@ -134,13 +135,13 @@ function Index() {
                 APP HOSTING, BY THE MINUTE
               </div>
               <h1 className="hero-title" id="hero-title">
-                Cloud that
+                Deploy your app.
                 <br />
-                <span className="hero-title-accent">clocks out.</span>
+                <span className="hero-title-accent">Create your database.</span>
               </h1>
               <p className="hero-copy">
-                Deploy your app from GitHub. Let it sleep when traffic disappears. Pay for compute
-                only when it wakes up.
+                Deploy your app. Create a SQLite database. In seconds. No manual setup, no credit
+                card, no infrastructure busywork.
               </p>
               <div className="hero-actions">
                 <Button asChild className="button-mono" size="lg">
@@ -153,8 +154,8 @@ function Index() {
                 </Button>
               </div>
               <p className="hero-fineprint">
-                {pricing.instance.free_cu_hours} free compute unit-hours included. No monthly
-                minimum.
+                No credit card required. Start free with {pricing.instance.free_cu_hours} compute
+                unit-hours.
               </p>
             </div>
             <div aria-hidden="true" className="hero-visual">
@@ -227,6 +228,25 @@ function Index() {
           </div>
         </section>
 
+        <section aria-label="Cloudisy platform stats" className="site-width stats-strip">
+          <div className="stat-block">
+            <strong>12s</strong>
+            <span>average deploy</span>
+          </div>
+          <div className="stat-block">
+            <strong>99.99%</strong>
+            <span>platform uptime</span>
+          </div>
+          <div className="stat-block">
+            <strong>1,240+</strong>
+            <span>apps deployed</span>
+          </div>
+          <div className="stat-block">
+            <strong>3,800+</strong>
+            <span>databases created</span>
+          </div>
+        </section>
+
         <section
           aria-label="Supported app frameworks and database"
           className="site-width ecosystem"
@@ -254,7 +274,7 @@ function Index() {
             </h2>
             <p className="section-copy">
               Ship product instead of wiring together a database, build pipeline, and a fleet of
-              always-on servers. Stackminute keeps the operational pieces small and predictable.
+              always-on servers. Cloudisy keeps the operational pieces small and predictable.
             </p>
             <div className="feature-grid">
               <article className="feature-card">
@@ -559,6 +579,139 @@ function Index() {
           </div>
         </section>
 
+        <section
+          aria-labelledby="database-title"
+          className="section database-spotlight"
+          id="database"
+        >
+          <div className="site-width spotlight-grid">
+            <div>
+              <div className="section-kicker mono-label">03 / MANAGED SQLITE</div>
+              <h2 className="section-title" id="database-title">
+                Your database, ready before your coffee.
+              </h2>
+              <p className="section-copy">
+                Create a production-ready SQLite database alongside your app. Query it in the
+                browser, ship with an SDK, and let backups happen automatically.
+              </p>
+              <div className="spotlight-list">
+                <div>
+                  <span>01</span>
+                  <strong>Instant create</strong>
+                  <p>One click, zero provisioning scripts.</p>
+                </div>
+                <div>
+                  <span>02</span>
+                  <strong>Web SQL console</strong>
+                  <p>Inspect and edit data without leaving Cloudisy.</p>
+                </div>
+                <div>
+                  <span>03</span>
+                  <strong>Backups included</strong>
+                  <p>Restore a clean snapshot whenever you need it.</p>
+                </div>
+              </div>
+            </div>
+            <div className="sql-console" aria-label="SQL console preview">
+              <div className="console-bar">
+                <span>cloudisy / studio</span>
+                <span className="console-live">CONNECTED</span>
+              </div>
+              <div className="console-code">
+                <span className="code-muted">-- recent users</span>
+                <br />
+                <span className="code-keyword">SELECT</span> id, email, plan
+                <br />
+                <span className="code-keyword">FROM</span> users
+                <br />
+                <span className="code-keyword">ORDER BY</span> created_at{" "}
+                <span className="code-keyword">DESC</span>
+                <br />
+                <span className="code-keyword">LIMIT</span> 3;
+              </div>
+              <div className="sql-result">
+                <span>id</span>
+                <span>email</span>
+                <span>plan</span>
+                <b>1042</b>
+                <b>nabila@dev.bd</b>
+                <b>pro</b>
+                <b>1041</b>
+                <b>rahim@cloudisy.dev</b>
+                <b>free</b>
+                <b>1040</b>
+                <b>tania@start.app</b>
+                <b>pro</b>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="developer-title" className="section developer-section">
+          <div className="site-width developer-grid">
+            <div>
+              <div className="section-kicker mono-label">04 / BUILT FOR DEVELOPERS</div>
+              <h2 className="section-title" id="developer-title">
+                Push code. Watch it ship.
+              </h2>
+              <p className="section-copy">
+                Use GitHub, the Cloudisy CLI, or our API. Same workflow, whichever way you like to
+                work.
+              </p>
+            </div>
+            <div className="dev-snippet">
+              <div className="snippet-tabs">
+                <span className="is-active">Git push</span>
+                <span>CLI</span>
+                <span>API</span>
+              </div>
+              <pre>
+                <code>
+                  <span className="code-muted"># deploy from your terminal</span>
+                  {"\n"}
+                  <span className="code-keyword">cloudisy</span> deploy --prod{"\n"}
+                  <span className="code-success">✓ Detecting Next.js</span>
+                  {"\n"}
+                  <span className="code-success">✓ Creating SQLite database</span>
+                  {"\n"}
+                  <span className="code-success">✓ Live in 12s</span>
+                </code>
+              </pre>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="use-cases-title" className="section use-cases-section">
+          <div className="site-width">
+            <div className="section-kicker mono-label">05 / SHIP ANYTHING</div>
+            <h2 className="section-title" id="use-cases-title">
+              A calm place for your next idea.
+            </h2>
+            <div className="use-case-grid">
+              <article>
+                <span>01</span>
+                <h3>SaaS products</h3>
+                <p>Ship the MVP and the production app on the same platform.</p>
+              </article>
+              <article>
+                <span>02</span>
+                <h3>APIs & backends</h3>
+                <p>Deploy fast services with logs, HTTPS, and predictable pricing.</p>
+              </article>
+              <article>
+                <span>03</span>
+                <h3>Student projects</h3>
+                <p>Learn the real deployment workflow without a credit card.</p>
+              </article>
+              <article>
+                <span>04</span>
+                <h3>Startups</h3>
+                <p>Move from first customer to scale without platform rewrites.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
         <section aria-labelledby="faq-title" className="section faq-section" id="faq">
           <div className="site-width faq-layout">
             <div>
@@ -596,8 +749,8 @@ function Index() {
               <details>
                 <summary>Do I need to use a new database?</summary>
                 <p>
-                  No. SQLite is a natural fit for many small and medium applications, and
-                  Stackminute keeps the database layer separate from the sleeping app instance.
+                  No. SQLite is a natural fit for many small and medium applications, and Cloudisy
+                  keeps the database layer separate from the sleeping app instance.
                 </p>
               </details>
             </div>
@@ -619,11 +772,11 @@ function Index() {
 
       <footer className="site-footer">
         <div className="site-width footer-inner">
-          <Link aria-label="Stackminute home" className="brand-link" to="/">
+          <Link aria-label="Cloudisy home" className="brand-link" to="/">
             <span aria-hidden="true" className="brand-mark">
               <Activity size={14} />
             </span>
-            <span>stackminute</span>
+            <span>cloudisy</span>
           </Link>
           <span>BUILT FOR THE MINUTES THAT MATTER.</span>
           <div className="footer-links">
