@@ -40,8 +40,6 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { pricing } from "@/lib/pricing";
-import runtimeImage from "@/assets/stackminute-runtime.png";
-
 const usd = (amount: number, maximumFractionDigits = 4) =>
   new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -120,41 +118,112 @@ function Index() {
       <main>
         <section aria-labelledby="hero-title" className="hero">
           <img
-            alt=""
+            alt="Abstract glowing SQLite database inside a cloud server environment"
             className="hero-art"
             decoding="async"
             fetchPriority="high"
             height={1024}
-            src={runtimeImage}
+            src="/hero-sqlite-cloud.png"
             width={1536}
           />
-          <div className="site-width hero-content">
-            <div className="hero-kicker mono-label">
-              <span aria-hidden="true" className="live-dot" />
-              APP HOSTING, BY THE MINUTE
+          <div aria-hidden="true" className="hero-grid-overlay" />
+          <div className="site-width hero-layout">
+            <div className="hero-content">
+              <div className="hero-kicker mono-label">
+                <span aria-hidden="true" className="live-dot" />
+                APP HOSTING, BY THE MINUTE
+              </div>
+              <h1 className="hero-title" id="hero-title">
+                Cloud that
+                <br />
+                <span className="hero-title-accent">clocks out.</span>
+              </h1>
+              <p className="hero-copy">
+                Deploy your app from GitHub. Let it sleep when traffic disappears. Pay for compute
+                only when it wakes up.
+              </p>
+              <div className="hero-actions">
+                <Button asChild className="button-mono" size="lg">
+                  <a href="#deploy">
+                    See how it works <ArrowRight aria-hidden="true" size={15} />
+                  </a>
+                </Button>
+                <Button asChild className="button-mono" size="lg" variant="outline">
+                  <a href="#pricing">Explore pricing</a>
+                </Button>
+              </div>
+              <p className="hero-fineprint">
+                {pricing.instance.free_cu_hours} free compute unit-hours included. No monthly
+                minimum.
+              </p>
             </div>
-            <h1 className="hero-title" id="hero-title">
-              Cloud that
-              <br />
-              <span className="hero-title-accent">clocks out.</span>
-            </h1>
-            <p className="hero-copy">
-              Deploy your app from GitHub. Let it sleep when traffic disappears. Pay for compute
-              only when it wakes up.
-            </p>
-            <div className="hero-actions">
-              <Button asChild className="button-mono" size="lg">
-                <a href="#deploy">
-                  See how it works <ArrowRight aria-hidden="true" size={15} />
-                </a>
-              </Button>
-              <Button asChild className="button-mono" size="lg" variant="outline">
-                <a href="#pricing">Explore pricing</a>
-              </Button>
+            <div aria-hidden="true" className="hero-visual">
+              <div className="hero-orbit orbit-one" />
+              <div className="hero-orbit orbit-two" />
+              <div className="hero-terminal">
+                <div className="terminal-topbar">
+                  <span className="terminal-dots">
+                    <i />
+                    <i />
+                    <i />
+                  </span>
+                  <span className="mono-label">stackminute / deploy</span>
+                  <span className="terminal-live">LIVE</span>
+                </div>
+                <div className="terminal-body">
+                  <div className="terminal-command">
+                    <span>❯</span> stackminute deploy --prod
+                  </div>
+                  <div className="terminal-line">
+                    <span className="line-check">✓</span> Detecting SQLite runtime
+                  </div>
+                  <div className="terminal-line">
+                    <span className="line-check">✓</span> Building from main
+                  </div>
+                  <div className="terminal-line muted">↳ Sleeping until traffic arrives</div>
+                  <div className="terminal-progress">
+                    <span />
+                  </div>
+                </div>
+              </div>
+              <div className="hero-stat hero-stat-top">
+                <span className="stat-pulse" /> <strong>0.00</strong>
+                <small>idle cost / min</small>
+              </div>
+              <div className="hero-stat hero-stat-bottom">
+                <DatabaseZap size={14} />
+                <strong>SQLite ready</strong>
+                <small>1 GB included</small>
+              </div>
             </div>
-            <p className="hero-fineprint">
-              {pricing.instance.free_cu_hours} free compute unit-hours included. No monthly minimum.
-            </p>
+          </div>
+        </section>
+
+        <section aria-label="Deployment flow" className="site-width flow-strip">
+          <div className="flow-intro">
+            <span className="mono-label">THE FLOW</span>
+            <strong>From commit to cloud.</strong>
+          </div>
+          <div className="flow-track">
+            <div className="flow-node">
+              <Github aria-hidden="true" size={16} />
+              <span>Push</span>
+            </div>
+            <ArrowRight aria-hidden="true" className="flow-arrow" size={15} />
+            <div className="flow-node">
+              <Terminal aria-hidden="true" size={16} />
+              <span>Build</span>
+            </div>
+            <ArrowRight aria-hidden="true" className="flow-arrow" size={15} />
+            <div className="flow-node">
+              <DatabaseZap aria-hidden="true" size={16} />
+              <span>Persist</span>
+            </div>
+            <ArrowRight aria-hidden="true" className="flow-arrow" size={15} />
+            <div className="flow-node flow-node-active">
+              <Zap aria-hidden="true" size={16} />
+              <span>Wake</span>
+            </div>
           </div>
         </section>
 
