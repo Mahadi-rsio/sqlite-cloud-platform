@@ -4,15 +4,20 @@ import {
   ArrowRight,
   ArrowUpRight,
   BadgeDollarSign,
+  ChartNoAxesCombined,
   Check,
   CircleOff,
+  Container,
   Clock3,
   Database,
-  GitBranch,
+  DatabaseZap,
+  GitPullRequest,
   Github,
+  Gauge,
+  LockKeyhole,
   Rocket,
   Server,
-  ShieldCheck,
+  Terminal,
   Zap,
 } from "lucide-react";
 import {
@@ -102,6 +107,7 @@ function Index() {
         </Link>
         <nav aria-label="Main navigation" className="topbar-links">
           <a href="#deploy">How it works</a>
+          <a href="#features">Features</a>
           <a href="#pricing">Pricing</a>
           <Button asChild className="topbar-cta button-mono" size="sm">
             <a href="#deploy">
@@ -133,8 +139,8 @@ function Index() {
               <span className="hero-title-accent">clocks out.</span>
             </h1>
             <p className="hero-copy">
-              Deploy your app from GitHub. Let it sleep when traffic disappears.
-              Pay for compute only when it wakes up.
+              Deploy your app from GitHub. Let it sleep when traffic disappears. Pay for compute
+              only when it wakes up.
             </p>
             <div className="hero-actions">
               <Button asChild className="button-mono" size="lg">
@@ -152,7 +158,10 @@ function Index() {
           </div>
         </section>
 
-        <section aria-label="Supported app frameworks and database" className="site-width ecosystem">
+        <section
+          aria-label="Supported app frameworks and database"
+          className="site-width ecosystem"
+        >
           <div className="mono-label ecosystem-title">Bring the stack you already use</div>
           <div className="ecosystem-grid">
             {frameworks.map(({ name, icon: Icon }) => (
@@ -164,9 +173,82 @@ function Index() {
           </div>
         </section>
 
+        <section
+          aria-labelledby="features-title"
+          className="section features-section"
+          id="features"
+        >
+          <div className="site-width">
+            <div className="section-kicker mono-label">01 / THE PLATFORM</div>
+            <h2 className="section-title" id="features-title">
+              The boring infrastructure your app deserves.
+            </h2>
+            <p className="section-copy">
+              Ship product instead of wiring together a database, build pipeline, and a fleet of
+              always-on servers. Stackminute keeps the operational pieces small and predictable.
+            </p>
+            <div className="feature-grid">
+              <article className="feature-card">
+                <span className="feature-icon">
+                  <Gauge aria-hidden="true" size={18} />
+                </span>
+                <h3 className="feature-title">Scale to zero</h3>
+                <p className="feature-copy">
+                  No traffic means no running compute. Wake quickly when the next request arrives.
+                </p>
+              </article>
+              <article className="feature-card">
+                <span className="feature-icon">
+                  <GitPullRequest aria-hidden="true" size={18} />
+                </span>
+                <h3 className="feature-title">Git-native deploys</h3>
+                <p className="feature-copy">
+                  Connect a repository and turn every deploy into a repeatable, visible build.
+                </p>
+              </article>
+              <article className="feature-card">
+                <span className="feature-icon">
+                  <DatabaseZap aria-hidden="true" size={18} />
+                </span>
+                <h3 className="feature-title">SQLite, included</h3>
+                <p className="feature-copy">
+                  Keep your application data close with metered storage and generous free usage.
+                </p>
+              </article>
+              <article className="feature-card">
+                <span className="feature-icon">
+                  <Container aria-hidden="true" size={18} />
+                </span>
+                <h3 className="feature-title">Your stack, unchanged</h3>
+                <p className="feature-copy">
+                  Bring Next.js, Python, Docker, Express, Nuxt, NestJS, Gin, or SvelteKit.
+                </p>
+              </article>
+              <article className="feature-card">
+                <span className="feature-icon">
+                  <ChartNoAxesCombined aria-hidden="true" size={18} />
+                </span>
+                <h3 className="feature-title">Usage you can read</h3>
+                <p className="feature-copy">
+                  See compute minutes, storage, reads, and writes as separate line items.
+                </p>
+              </article>
+              <article className="feature-card">
+                <span className="feature-icon">
+                  <LockKeyhole aria-hidden="true" size={18} />
+                </span>
+                <h3 className="feature-title">Built for production</h3>
+                <p className="feature-copy">
+                  Health checks, isolated builds, and encrypted transport are part of the baseline.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
         <section aria-labelledby="deploy-title" className="section" id="deploy">
           <div className="site-width">
-            <div className="section-kicker mono-label">01 / FROM REPO TO RUNNING APP</div>
+            <div className="section-kicker mono-label">02 / FROM REPO TO RUNNING APP</div>
             <h2 className="section-title" id="deploy-title">
               A GitHub repo in. An app in the cloud out.
             </h2>
@@ -203,8 +285,8 @@ function Index() {
                   <div>
                     <h3 className="step-title">Deploy. Wake on requests. Sleep at zero.</h3>
                     <p className="step-copy">
-                      The instance automatically scales with traffic, then scales to zero when
-                      there is none.
+                      The instance automatically scales with traffic, then scales to zero when there
+                      is none.
                     </p>
                   </div>
                 </article>
@@ -288,10 +370,14 @@ function Index() {
           </div>
         </section>
 
-        <section aria-labelledby="pricing-title" className="site-width pricing-section" id="pricing">
+        <section
+          aria-labelledby="pricing-title"
+          className="site-width pricing-section"
+          id="pricing"
+        >
           <div className="pricing-heading-row">
             <div>
-              <div className="section-kicker mono-label">02 / TRANSPARENT, PER-MINUTE PRICING</div>
+              <div className="section-kicker mono-label">03 / TRANSPARENT, PER-MINUTE PRICING</div>
               <h2 className="section-title" id="pricing-title">
                 A smaller bill starts with a smaller clock.
               </h2>
@@ -404,6 +490,51 @@ function Index() {
           </div>
         </section>
 
+        <section aria-labelledby="faq-title" className="section faq-section" id="faq">
+          <div className="site-width faq-layout">
+            <div>
+              <div className="section-kicker mono-label">04 / BEFORE YOU DEPLOY</div>
+              <h2 className="section-title" id="faq-title">
+                A few useful answers.
+              </h2>
+              <p className="section-copy">
+                Start small, connect your repo, and keep an eye on the minutes. There is no monthly
+                minimum and no need to change your application architecture.
+              </p>
+            </div>
+            <div className="faq-list">
+              <details open>
+                <summary>What happens when my app has no traffic?</summary>
+                <p>
+                  The compute instance scales to zero, so you stop paying for idle compute. Your
+                  SQLite storage remains available separately.
+                </p>
+              </details>
+              <details>
+                <summary>What can I deploy?</summary>
+                <p>
+                  Deploy supported Node, Python, and containerized applications from GitHub,
+                  including Next.js, SvelteKit, Django, Flask, Express, Nuxt, NestJS, and Gin.
+                </p>
+              </details>
+              <details>
+                <summary>How is the bill calculated?</summary>
+                <p>
+                  Compute is metered per CU-minute. SQLite is metered by GB-month, reads, and
+                  writes. The free allowances and example rates above are kept in pricing.toml.
+                </p>
+              </details>
+              <details>
+                <summary>Do I need to use a new database?</summary>
+                <p>
+                  No. SQLite is a natural fit for many small and medium applications, and
+                  Stackminute keeps the database layer separate from the sleeping app instance.
+                </p>
+              </details>
+            </div>
+          </div>
+        </section>
+
         <section aria-label="Start your deployment" className="closing-band site-width">
           <div>
             <h2 className="closing-title">Your repo has places to be.</h2>
@@ -426,9 +557,14 @@ function Index() {
             <span>stackminute</span>
           </Link>
           <span>BUILT FOR THE MINUTES THAT MATTER.</span>
-          <a className="quiet-link" href="#pricing">
-            <Clock3 aria-hidden="true" className="mr-1 inline" size={12} /> Pricing
-          </a>
+          <div className="footer-links">
+            <a className="quiet-link" href="#faq">
+              <Terminal aria-hidden="true" className="mr-1 inline" size={12} /> FAQ
+            </a>
+            <a className="quiet-link" href="#pricing">
+              <Clock3 aria-hidden="true" className="mr-1 inline" size={12} /> Pricing
+            </a>
+          </div>
         </div>
       </footer>
     </>
