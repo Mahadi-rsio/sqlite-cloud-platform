@@ -15,7 +15,9 @@ import {
   Github,
   Gauge,
   LockKeyhole,
+  Menu,
   Rocket,
+  X,
   Server,
   Terminal,
   Zap,
@@ -91,6 +93,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const [servingTraffic, setServingTraffic] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const activeComputeCost = pricing.instance.rate_per_cu_minute_usd * 1.5;
   const formatInteger = (value: number) => new Intl.NumberFormat("en-US").format(value);
 
@@ -117,6 +120,39 @@ function Index() {
             </a>
           </Button>
         </nav>
+        <Button
+          aria-expanded={mobileMenuOpen}
+          aria-label={mobileMenuOpen ? "Close navigation" : "Open navigation"}
+          className="mobile-menu-toggle"
+          onClick={() => setMobileMenuOpen((open) => !open)}
+          size="icon"
+          variant="ghost"
+        >
+          {mobileMenuOpen ? (
+            <X aria-hidden="true" size={20} />
+          ) : (
+            <Menu aria-hidden="true" size={20} />
+          )}
+        </Button>
+        {mobileMenuOpen && (
+          <nav aria-label="Mobile navigation" className="mobile-nav">
+            <a href="#features" onClick={() => setMobileMenuOpen(false)}>
+              Features
+            </a>
+            <a href="#database" onClick={() => setMobileMenuOpen(false)}>
+              Database
+            </a>
+            <a href="#pricing" onClick={() => setMobileMenuOpen(false)}>
+              Pricing
+            </a>
+            <a href="#faq" onClick={() => setMobileMenuOpen(false)}>
+              FAQ
+            </a>
+            <a href="#deploy" onClick={() => setMobileMenuOpen(false)}>
+              Start free <ArrowUpRight aria-hidden="true" size={13} />
+            </a>
+          </nav>
+        )}
       </header>
 
       <main>
@@ -257,13 +293,15 @@ function Index() {
           className="site-width ecosystem"
         >
           <div className="mono-label ecosystem-title">Bring the stack you already use</div>
-          <div className="ecosystem-grid">
-            {frameworks.map(({ name, icon: Icon }) => (
-              <div className="ecosystem-item" key={name}>
-                <Icon aria-hidden="true" className="ecosystem-icon" />
-                <span className="ecosystem-name">{name}</span>
-              </div>
-            ))}
+          <div className="ecosystem-marquee" aria-label="Supported frameworks">
+            <div className="ecosystem-track">
+              {[...frameworks, ...frameworks].map(({ name, icon: Icon }, index) => (
+                <div className="ecosystem-item" key={`${name}-${index}`}>
+                  <Icon aria-hidden="true" className="ecosystem-icon" />
+                  <span className="ecosystem-name">{name}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -776,22 +814,53 @@ function Index() {
       </main>
 
       <footer className="site-footer">
-        <div className="site-width footer-inner">
-          <Link aria-label="Cloudisy home" className="brand-link" to="/">
-            <span aria-hidden="true" className="brand-mark">
-              <Activity size={14} />
-            </span>
-            <span>cloudisy</span>
-          </Link>
-          <span>BUILT FOR THE MINUTES THAT MATTER.</span>
-          <div className="footer-links">
-            <a className="quiet-link" href="#faq">
-              <Terminal aria-hidden="true" className="mr-1 inline" size={12} /> FAQ
-            </a>
-            <a className="quiet-link" href="#pricing">
-              <Clock3 aria-hidden="true" className="mr-1 inline" size={12} /> Pricing
-            </a>
+        <div className="site-width footer-cta">
+          <div>
+            <span className="mono-label">READY TO SHIP?</span>
+            <h2>Your app is one push away.</h2>
+            <p>No credit card required.</p>
           </div>
+          <Button asChild className="button-mono" size="default">
+            <a href="#deploy">
+              Start free <ArrowRight aria-hidden="true" size={14} />
+            </a>
+          </Button>
+        </div>
+        <div className="site-width footer-grid">
+          <div className="footer-brand">
+            <Link aria-label="Cloudisy home" className="brand-link" to="/">
+              <span aria-hidden="true" className="brand-mark">
+                <Activity size={14} />
+              </span>
+              <span>cloudisy</span>
+            </Link>
+            <p>Deploy applications. Create databases. Pay only for what you use.</p>
+            <span>Made with care in Bangladesh.</span>
+          </div>
+          <div>
+            <h3>Product</h3>
+            <a href="#features">Features</a>
+            <a href="#deploy">Deployments</a>
+            <a href="#database">SQLite databases</a>
+            <a href="#pricing">Pricing</a>
+          </div>
+          <div>
+            <h3>Resources</h3>
+            <a href="#faq">FAQ</a>
+            <a href="#deploy">How it works</a>
+            <a href="#features">Supported stacks</a>
+          </div>
+          <div>
+            <h3>Company</h3>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Status</a>
+          </div>
+        </div>
+        <div className="site-width footer-bottom">
+          <span>© 2026 Cloudisy</span>
+          <span>Privacy · Terms · Security</span>
+          <a href="#hero-title">Back to top ↑</a>
         </div>
       </footer>
     </>
