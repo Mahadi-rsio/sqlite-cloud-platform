@@ -96,7 +96,7 @@ function Index() {
 
   return (
     <>
-      <header className="site-width topbar">
+      <header className="site-width topbar topbar-floating">
         <Link aria-label="Cloudisy home" className="brand-link" to="/">
           <span aria-hidden="true" className="brand-mark">
             <Activity size={15} strokeWidth={1.8} />
@@ -108,6 +108,9 @@ function Index() {
           <a href="#database">Database</a>
           <a href="#pricing">Pricing</a>
           <a href="#faq">FAQ</a>
+          <a className="nav-login" href="#">
+            Log in
+          </a>
           <Button asChild className="topbar-cta button-mono" size="sm">
             <a href="#deploy">
               Start free <ArrowUpRight aria-hidden="true" size={13} />
@@ -132,7 +135,7 @@ function Index() {
             <div className="hero-content">
               <div className="hero-kicker mono-label">
                 <span aria-hidden="true" className="live-dot" />
-                APP HOSTING, BY THE MINUTE
+                THE CLOUD FOR BUILDERS
               </div>
               <h1 className="hero-title" id="hero-title">
                 Deploy your app.
@@ -146,11 +149,13 @@ function Index() {
               <div className="hero-actions">
                 <Button asChild className="button-mono" size="lg">
                   <a href="#deploy">
-                    See how it works <ArrowRight aria-hidden="true" size={15} />
+                    Start free <ArrowRight aria-hidden="true" size={15} />
                   </a>
                 </Button>
                 <Button asChild className="button-mono" size="lg" variant="outline">
-                  <a href="#pricing">Explore pricing</a>
+                  <a href="#pricing">
+                    <span aria-hidden="true">▶</span> Watch demo
+                  </a>
                 </Button>
               </div>
               <p className="hero-fineprint">

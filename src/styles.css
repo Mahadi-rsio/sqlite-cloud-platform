@@ -121,12 +121,48 @@
 
 .topbar {
   position: relative;
-  z-index: 2;
+  z-index: 10;
   display: flex;
   height: 68px;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid color-mix(in oklch, var(--foreground) 9%, transparent);
+}
+
+.topbar-floating {
+  position: sticky;
+  top: 14px;
+  width: min(1080px, calc(100% - 48px));
+  min-height: 54px;
+  height: 54px;
+  padding: 0 10px 0 15px;
+  border: 1px solid color-mix(in oklch, var(--foreground) 12%, transparent);
+  border-radius: 16px;
+  background: color-mix(in oklch, var(--background) 78%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklch, var(--foreground) 9%, transparent),
+    0 14px 38px color-mix(in oklch, var(--background) 35%, transparent);
+  backdrop-filter: blur(18px);
+}
+.topbar-floating::after {
+  position: absolute;
+  right: 16px;
+  bottom: -1px;
+  left: 16px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--signal), #7c3aed, transparent);
+  opacity: 0.75;
+  content: "";
+}
+.nav-login {
+  color: var(--muted-foreground);
+  transition:
+    color 200ms ease,
+    transform 200ms ease;
+}
+.nav-login:hover {
+  color: var(--foreground);
+  transform: translateY(-1px);
 }
 
 .brand-link {
