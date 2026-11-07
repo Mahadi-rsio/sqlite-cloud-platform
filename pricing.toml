@@ -1,0 +1,16 @@
+# Fictional sample prices for the Stackminute marketing page.
+# Replace these values with confirmed rates before advertising live pricing.
+
+[instance]
+free_cu_hours = 50
+rate_per_cu_minute_usd = 0.0002
+calculation_note = "Metered per compute unit-minute."
+
+[sqlite]
+free_storage_gb = 1
+free_monthly_reads = 100000
+free_monthly_writes = 50000
+storage_per_gb_month_usd = 0.12
+reads_per_100k_usd = 0.04
+writes_per_50k_usd = 0.12
+calculation_note = "Storage per GB-month; operations metered per 100,000 reads and 50,000 writes."
