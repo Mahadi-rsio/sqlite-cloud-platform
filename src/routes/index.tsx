@@ -199,6 +199,34 @@ function Index() {
           </div>
         </section>
 
+        <section aria-label="Deployment flow" className="site-width flow-strip">
+          <div className="flow-intro">
+            <span className="mono-label">THE FLOW</span>
+            <strong>From commit to cloud.</strong>
+          </div>
+          <div className="flow-track">
+            <div className="flow-node">
+              <Github aria-hidden="true" size={16} />
+              <span>Push</span>
+            </div>
+            <ArrowRight aria-hidden="true" className="flow-arrow" size={15} />
+            <div className="flow-node">
+              <Terminal aria-hidden="true" size={16} />
+              <span>Build</span>
+            </div>
+            <ArrowRight aria-hidden="true" className="flow-arrow" size={15} />
+            <div className="flow-node">
+              <DatabaseZap aria-hidden="true" size={16} />
+              <span>Persist</span>
+            </div>
+            <ArrowRight aria-hidden="true" className="flow-arrow" size={15} />
+            <div className="flow-node flow-node-active">
+              <Zap aria-hidden="true" size={16} />
+              <span>Wake</span>
+            </div>
+          </div>
+        </section>
+
         <section
           aria-label="Supported app frameworks and database"
           className="site-width ecosystem"

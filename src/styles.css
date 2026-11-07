@@ -386,6 +386,134 @@
   object-position: center 59%;
   opacity: 0.77;
   pointer-events: none;
+  animation: hero-drift 16s ease-in-out infinite alternate;
+}
+
+.flow-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  padding-block: 18px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.flow-intro {
+  display: grid;
+  gap: 2px;
+  min-width: 148px;
+}
+.flow-intro .mono-label {
+  color: var(--signal);
+}
+.flow-intro strong {
+  font-size: 12px;
+  font-weight: 500;
+}
+.flow-track {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.flow-node {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid var(--rule);
+  color: var(--muted-foreground);
+  font:
+    11px "Geist Mono",
+    monospace;
+  transition:
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+.flow-node:hover {
+  border-color: color-mix(in oklch, var(--signal) 52%, var(--rule));
+  color: var(--foreground);
+  transform: translateY(-2px);
+}
+.flow-node svg {
+  color: var(--signal);
+}
+.flow-node-active {
+  border-color: color-mix(in oklch, var(--positive) 42%, var(--rule));
+  color: var(--foreground);
+  box-shadow: 0 0 22px color-mix(in oklch, var(--positive) 9%, transparent);
+}
+.flow-node-active svg {
+  color: var(--positive);
+}
+.flow-arrow {
+  flex: 0 0 auto;
+  color: var(--quiet);
+  animation: flow-pulse 1.8s ease-in-out infinite;
+}
+.flow-arrow:nth-of-type(2) {
+  animation-delay: 250ms;
+}
+.flow-arrow:nth-of-type(3) {
+  animation-delay: 500ms;
+}
+
+@keyframes hero-drift {
+  from {
+    transform: scale(1.02) translate3d(-1%, 0, 0);
+  }
+  to {
+    transform: scale(1.07) translate3d(1%, -1%, 0);
+  }
+}
+@keyframes flow-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(3px);
+  }
+}
+@keyframes orbit-spin {
+  from {
+    transform: rotate(28deg) scaleY(0.34);
+  }
+  to {
+    transform: rotate(388deg) scaleY(0.34);
+  }
+}
+@keyframes terminal-float {
+  from {
+    transform: translateY(-50%) rotate(2deg);
+  }
+  to {
+    transform: translateY(calc(-50% - 8px)) rotate(1deg);
+  }
+}
+
+.hero-terminal {
+  animation: terminal-float 5s ease-in-out infinite alternate;
+}
+.orbit-one {
+  animation: orbit-spin 18s linear infinite;
+}
+.stat-pulse {
+  animation: stat-blink 1.8s ease-in-out infinite;
+}
+@keyframes stat-blink {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .hero-content {
@@ -1034,6 +1162,33 @@
   .hero-copy {
     max-width: 390px;
     font-size: 13px;
+  }
+
+  .flow-strip {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 14px;
+    padding-block: 18px 20px;
+  }
+
+  .flow-track {
+    width: 100%;
+    gap: 5px;
+  }
+
+  .flow-node {
+    min-width: 0;
+    flex: 1;
+    justify-content: center;
+    padding-inline: 7px;
+    font-size: 9px;
+  }
+
+  .flow-node svg {
+    width: 14px;
+  }
+  .flow-arrow {
+    width: 11px;
   }
 
   .ecosystem {
