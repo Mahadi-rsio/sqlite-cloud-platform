@@ -328,6 +328,48 @@
   line-height: 1.85;
 }
 
+.features-section {
+  background: color-mix(in oklch, var(--panel) 46%, var(--background));
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 40px;
+  border: 1px solid var(--rule);
+  background: var(--rule);
+}
+
+.feature-card {
+  min-height: 185px;
+  padding: 23px 21px 25px;
+  background: var(--panel);
+}
+
+.feature-icon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid color-mix(in oklch, var(--signal) 32%, var(--rule));
+  color: var(--signal);
+}
+
+.feature-title {
+  margin: 18px 0 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.feature-copy {
+  max-width: 260px;
+  margin: 8px 0 0;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  line-height: 1.75;
+}
+
 .deployment-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(330px, 0.79fr);
@@ -586,6 +628,56 @@
   font-size: 12px;
 }
 
+.faq-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+  gap: 80px;
+}
+
+.faq-list {
+  border-top: 1px solid var(--rule);
+}
+
+.faq-list details {
+  border-bottom: 1px solid var(--rule);
+}
+
+.faq-list summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 0;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  list-style: none;
+}
+
+.faq-list summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-list summary::after {
+  color: var(--signal);
+  content: "+";
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.faq-list details[open] summary::after {
+  content: "−";
+}
+
+.faq-list details p {
+  max-width: 520px;
+  margin: -3px 28px 18px 0;
+  color: var(--muted-foreground);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
 .closing-band {
   display: flex;
   flex-wrap: wrap;
@@ -626,6 +718,12 @@
 
 .quiet-link {
   transition: color 160ms ease;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
 
 :focus-visible {
@@ -717,6 +815,11 @@
     margin-top: 30px;
   }
 
+  .feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 30px;
+  }
+
   .meter-panel {
     max-width: 480px;
   }
@@ -727,6 +830,11 @@
 
   .pricing-tables {
     margin-top: 26px;
+  }
+
+  .faq-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 34px;
   }
 
   .closing-band {

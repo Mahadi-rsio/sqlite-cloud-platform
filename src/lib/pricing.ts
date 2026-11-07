@@ -43,9 +43,14 @@ function readPricingSheet(value: TomlTable): PricingSheet {
   ];
 
   if (numbers.some((number) => !Number.isFinite(number) || number < 0)) {
-    throw new Error("pricing.toml must include a nonnegative numeric value for every allowance and price.");
+    throw new Error(
+      "pricing.toml must include a nonnegative numeric value for every allowance and price.",
+    );
   }
-  if (typeof sheet.instance.calculation_note !== "string" || typeof sheet.sqlite.calculation_note !== "string") {
+  if (
+    typeof sheet.instance.calculation_note !== "string" ||
+    typeof sheet.sqlite.calculation_note !== "string"
+  ) {
     throw new Error("pricing.toml must describe its instance and SQLite billing units.");
   }
 
